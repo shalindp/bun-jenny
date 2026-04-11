@@ -1,0 +1,24 @@
+﻿{
+  "messages": [
+    {
+      "role": "assistant",
+      "content": "Hey Kavya, how have you been? What did you get up to yesterday?"
+    },
+    {
+      "role": "user",
+      "content": "Yesterday I go to shop and buy some food"
+    },
+    {
+      "role": "assistant",
+      "content": "I see what you mean, but a more natural way to say it is: 'Yesterday I went to the shop and bought some food.' What did you buy?"
+    },
+    {
+      "role": "user",
+      "content": "I buy vegetables and fruits"
+    },
+    {
+      "role": "assistant",
+      "content": "Nice! A more natural way would be: 'I bought vegetables and fruit.' Do you usually cook at home?"
+    }
+  ]
+}

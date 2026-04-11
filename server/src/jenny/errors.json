@@ -1,0 +1,58 @@
+﻿{
+  "errors": [
+    {
+      "id": "err_001",
+      "concept": "Using present continuous instead of 'going to' for future plans",
+      "incorrectExample": "I am going to shopping",
+      "correctExample": "I am going shopping",
+      "explanation": "In spoken English, we say 'going shopping' instead of 'going to shopping'.",
+      "examples": [
+        "I am going shopping later.",
+        "She is going swimming tomorrow."
+      ],
+      "practicePrompts": [
+        "What are you doing this weekend?",
+        "Tell me your plans for tomorrow."
+      ],
+      "isMastered": false,
+      "attempts": 1,
+      "lastReviewed": "2026-04-10T10:00:00Z"
+    },
+    {
+      "id": "err_002",
+      "concept": "Missing auxiliary verb 'do' in questions",
+      "incorrectExample": "You like coffee?",
+      "correctExample": "Do you like coffee?",
+      "explanation": "In English questions, we usually need 'do' or 'does' at the start.",
+      "examples": [
+        "Do you like tea?",
+        "Do they play football?"
+      ],
+      "practicePrompts": [
+        "Ask me if I like pizza.",
+        "Ask me about my hobbies."
+      ],
+      "isMastered": false,
+      "attempts": 2,
+      "lastReviewed": "2026-04-09T15:30:00Z"
+    },
+    {
+      "id": "err_003",
+      "concept": "Incorrect verb tense (past vs present)",
+      "incorrectExample": "Yesterday I go to the shop",
+      "correctExample": "Yesterday I went to the shop",
+      "explanation": "When talking about the past, verbs must be in past tense.",
+      "examples": [
+        "I watched a movie yesterday.",
+        "She went to work early."
+      ],
+      "practicePrompts": [
+        "What did you do yesterday?",
+        "Tell me about your last weekend."
+      ],
+      "isMastered": true,
+      "attempts": 3,
+      "lastReviewed": "2026-04-08T12:00:00Z"
+    }
+  ]
+}
