@@ -35,11 +35,14 @@
         
         <!-- Loading indicator -->
         <div v-if="chat.loading" class="flex justify-start mb-4">
-          <div class="jenny-bubble">
-            <div class="flex gap-1">
-              <div class="w-2 h-2 bg-pink rounded-full animate-bounce" style="animation-delay: 0ms"></div>
-              <div class="w-2 h-2 bg-pink rounded-full animate-bounce" style="animation-delay: 150ms"></div>
-              <div class="w-2 h-2 bg-pink rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+          <div class="bg-bg-card border border-pink-dark rounded-2xl rounded-bl-none px-4 py-3">
+            <div class="flex items-center gap-2">
+              <span class="text-text-muted text-sm">Jenny is thinking</span>
+              <span class="flex gap-1">
+                <span class="w-1.5 h-1.5 bg-pink rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+                <span class="w-1.5 h-1.5 bg-pink rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+                <span class="w-1.5 h-1.5 bg-pink rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+              </span>
             </div>
           </div>
         </div>
@@ -156,6 +159,7 @@ const submitMessage = async () => {
   clearTimeout(debounceTimer!)
   inputText.value = ''
   chat.faceState = 'thinking'
+  chat.loading = true
   
   chat.addUserMessage(text)
   await nextTick()
@@ -174,6 +178,7 @@ const submitMessage = async () => {
 
     const data = await res.json() as { response: string; reasoning: string }
 
+    chat.loading = false
     chat.addAssistantMessage(data.response, data.reasoning)
     await nextTick()
     scrollToBottom()
@@ -189,6 +194,7 @@ const submitMessage = async () => {
   } catch (e) {
     chat.faceState = 'idle'
     tts.isSpeaking.value = false
+    chat.loading = false
     chat.error = 'Sorry, something went wrong. Please try again.'
     setTimeout(() => { chat.error = null }, 3000)
     focusInput()
@@ -235,7 +241,6 @@ onMounted(async () => {
     chat.loading = true
     
     chat.addAssistantMessage(server.initResponse.response, server.initResponse.reasoning)
-    
     chat.loading = false
     await nextTick()
     scrollToBottom()
