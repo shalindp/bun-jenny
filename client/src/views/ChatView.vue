@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-screen">
     <!-- Jenny Face -->
-    <div class="shrink-0 h-[200px] py-3 flex justify-center items-center relative">
+    <div class="shrink-0 h-[110px] mb-2 flex justify-center items-center relative">
       <div 
         v-if="chat.faceState === 'thinking'"
         class="absolute -right-16 top-0 flex flex-col items-center"
@@ -47,7 +47,7 @@
     </div>
     
     <!-- Input Area -->
-    <div class="bg-bg-primary border-t border-border h-[150px] py-2">
+    <div class="bg-bg-primary border-t border-border h-[194px] py-2">
       <div class="max-w-2xl mx-auto flex flex-col justify-center">
         <div class="flex gap-3">
           <input 
