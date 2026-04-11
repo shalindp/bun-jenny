@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { marked } from 'marked'
 import type { Message } from '../stores/chat'
 
-defineProps<{
+const props = defineProps<{
   message: Message
 }>()
+
+const renderedContent = computed(() => {
+  if (props.message.role === 'assistant') {
+    return marked(props.message.content)
+  }
+  return props.message.content
+})
 </script>
 
 <template>
@@ -12,16 +21,22 @@ defineProps<{
     :class="message.role === 'user' ? 'items-end' : 'items-start'"
   >
     <div 
-      class="max-w-[80%] px-4 py-2 rounded-2xl"
-      :class="message.role === 'user' 
-        ? 'bg-blue-600 text-white rounded-br-md' 
-        : 'bg-gray-100 text-gray-900 rounded-bl-md'"
+      class="max-w-[80%] px-4 py-3 rounded-3xl"
+      :style="message.role === 'user' 
+        ? { background: 'var(--user-bubble)', color: 'white' } 
+        : { background: 'var(--jenny-bubble)', color: 'var(--text-h)' }"
     >
-      <p class="whitespace-pre-wrap">{{ message.content }}</p>
+      <div 
+        v-if="message.role === 'assistant'" 
+        class="prose prose-invert prose-pink prose-sm max-w-none"
+        v-html="renderedContent"
+      ></div>
+      <p v-else class="whitespace-pre-wrap">{{ message.content }}</p>
     </div>
     <div 
       v-if="message.reasoning" 
-      class="mt-1 text-xs text-gray-400 italic max-w-[80%] px-2"
+      class="mt-1 text-xs italic max-w-[80%] px-2"
+      style="color: var(--text); opacity: 0.5"
     >
       {{ message.reasoning }}
     </div>

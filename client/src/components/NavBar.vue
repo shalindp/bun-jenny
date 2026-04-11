@@ -12,39 +12,42 @@ onUnmounted(() => server.stopPolling())
 </script>
 
 <template>
-  <nav class="bg-white border-b border-gray-200 px-4 py-3">
+  <nav class="px-4 py-3" style="background: var(--surface); border-bottom: 1px solid var(--border)">
     <div class="max-w-4xl mx-auto flex items-center justify-between">
       <div class="flex items-center gap-6">
-        <RouterLink to="/chat" class="text-xl font-bold text-gray-800">Jenny</RouterLink>
+        <RouterLink to="/chat" class="text-xl font-semibold" style="color: var(--accent)">Jenny</RouterLink>
         <div class="flex gap-4">
           <RouterLink 
             to="/chat" 
-            class="text-gray-600 hover:text-gray-900 transition-colors"
-            active-class="text-blue-600 font-medium"
+            class="text-white/70 hover:text-white transition-colors"
+            active-class="font-medium"
+            :style="{ color: 'var(--accent)' }"
           >
             Chat
           </RouterLink>
           <RouterLink 
             to="/profile" 
-            class="text-gray-600 hover:text-gray-900 transition-colors"
-            active-class="text-blue-600 font-medium"
+            class="text-white/70 hover:text-white transition-colors"
+            active-class="font-medium"
+            :style="{ color: 'var(--accent)' }"
           >
             Profile
           </RouterLink>
           <RouterLink 
             to="/settings" 
-            class="text-gray-600 hover:text-gray-900 transition-colors"
-            active-class="text-blue-600 font-medium"
+            class="text-white/70 hover:text-white transition-colors"
+            active-class="font-medium"
+            :style="{ color: 'var(--accent)' }"
           >
             Settings
           </RouterLink>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <span class="text-sm text-gray-500">{{ checking ? 'Checking...' : isHealthy ? 'Online' : 'Offline' }}</span>
+        <span class="text-sm" style="color: var(--text)">{{ checking ? 'Checking...' : isHealthy ? 'Online' : 'Offline' }}</span>
         <span 
           class="w-2.5 h-2.5 rounded-full"
-          :class="isHealthy ? 'bg-green-500' : 'bg-red-500'"
+          :style="{ backgroundColor: isHealthy ? '#4ade80' : '#f87171', boxShadow: isHealthy ? '0 0 8px #4ade80' : 'none' }"
         ></span>
       </div>
     </div>

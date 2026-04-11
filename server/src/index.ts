@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {Jenny} from "./jenny/jenny.ts";
+import {GRAMMAR_CHECK_PROMPT} from "./jenny/prompts.ts";
 
 const app = express();
 const PORT = 3000;
@@ -23,7 +24,7 @@ app.post("/prompt", async (req, res) => {
             res.status(400).json({ error: "prompt is required" });
             return;
         }
-        const result = await jenny.promptAsync(prompt);
+        const result = await jenny.promptAsync(prompt, GRAMMAR_CHECK_PROMPT);
         res.json(result);
     } catch (error) {
         console.error("/prompt error:", error);
@@ -31,17 +32,12 @@ app.post("/prompt", async (req, res) => {
     }
 });
 
-app.get("/init", async (req, res) => {
+app.get("/init", async (_req, res) => {
     try {
-        const { prompt } = req.body;
-        if (!prompt) {
-            res.status(400).json({ error: "prompt is required" });
-            return;
-        }
         const result = await jenny.initialiseAsync();
         res.json(result);
     } catch (error) {
-        console.error("/prompt error:", error);
+        console.error("/init error:", error);
         res.status(500).json({ error: error instanceof Error ? error.message : "Internal error" });
     }
 });

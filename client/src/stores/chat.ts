@@ -53,10 +53,21 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
+  function addInitMessage(response: string, reasoning?: string) {
+    const message: Message = {
+      id: crypto.randomUUID(),
+      role: 'assistant',
+      content: response,
+      reasoning,
+      timestamp: new Date()
+    }
+    messages.value.push(message)
+  }
+
   function clearMessages() {
     messages.value = []
     error.value = null
   }
 
-  return { messages, loading, error, sendMessage, clearMessages }
+  return { messages, loading, error, sendMessage, addInitMessage, clearMessages }
 })
