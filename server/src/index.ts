@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import {Jenny} from "./jenny/jenny.ts";
-import {GRAMMAR_CHECK_PROMPT} from "./jenny/prompts.ts";
+import correctionPrompt from './jenny/prompts/correction_prompt.md?raw';
+
 
 const app = express();
 const PORT = 3000;
@@ -24,7 +25,7 @@ app.post("/prompt", async (req, res) => {
             res.status(400).json({ error: "prompt is required" });
             return;
         }
-        const result = await jenny.promptAsync(prompt, GRAMMAR_CHECK_PROMPT);
+        const result = await jenny.promptAsync(prompt, correctionPrompt);
         res.json(result);
     } catch (error) {
         console.error("/prompt error:", error);
