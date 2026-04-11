@@ -135,6 +135,14 @@
               ></span>
             </button>
           </div>
+          <div class="pt-4 mt-2 border-t border-border">
+            <button 
+              @click="resetAll"
+              class="w-full px-4 py-2 bg-error/20 text-error rounded-lg hover:bg-error/30 transition-colors text-sm font-medium"
+            >
+              Reset All Data
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -182,6 +190,13 @@ const toggleDebug = () => {
 
 const toggleTts = () => {
   settings.setTtsEnabled(!settings.ttsEnabled)
+}
+
+const resetAll = () => {
+  if (confirm('Are you sure you want to reset all data? This will clear your chat history and settings.')) {
+    localStorage.clear()
+    window.location.href = '/chat'
+  }
 }
 </script>
 

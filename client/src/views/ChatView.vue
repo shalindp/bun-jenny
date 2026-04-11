@@ -14,7 +14,7 @@
     </div>
     
     <!-- Chat Area -->
-    <div ref="chatContainer" class="flex-1 overflow-y-auto px-6 py-4">
+    <div ref="chatContainer" class="flex-1 overflow-y-auto px-6 py-4 max-h-[600px]">
       <!-- Error bar -->
       <div v-if="chat.error" class="mb-4 px-4 py-2 bg-error/20 text-error text-sm text-center rounded-lg">
         {{ chat.error }}
@@ -47,7 +47,7 @@
     </div>
     
     <!-- Input Area -->
-    <div class="bg-bg-primary border-t border-border h-[194px] py-2">
+    <div class="bg-bg-primary border-t border-border h-[120px] py-2">
       <div class="max-w-2xl mx-auto flex flex-col justify-center">
         <div class="flex gap-3">
           <input 
