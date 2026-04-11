@@ -18,8 +18,17 @@ interface IPromptResponse {
 export class Jenny {
     private opencode: IOpencode | undefined;
     private sessionId: string = "__UNKNOWN__";
+    private isInitialized = false;
 
     async initialiseAsync(): Promise<IPromptResponse> {
+        if (this.isInitialized) {
+            return { 
+                response: JSON.stringify({ user: "Welcome back! How are you feeling today?", system: "" }), 
+                reasoning: "Session already initialized, returning greeting", 
+                parts: [] 
+            };
+        }
+
         this.opencode = await createOpencode({
             hostname: "127.0.0.1",
             port: 6969,
@@ -32,7 +41,10 @@ export class Jenny {
 
 
         await this.promptAsync(systemPrompt);
-        return await this.promptAsync("", "Please greet the user, feel excited");
+        const result = await this.promptAsync("", "Please greet the user, feel excited");
+        
+        this.isInitialized = true;
+        return result;
     }
 
     async listModels() {

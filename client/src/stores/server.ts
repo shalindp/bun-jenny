@@ -27,7 +27,7 @@ export const useServerStore = defineStore('server', () => {
   }
 
   async function initialize() {
-    if (isInitialized.value || initializing.value) return
+    if (initializing.value) return
     
     initializing.value = true
     try {
