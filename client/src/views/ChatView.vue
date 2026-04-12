@@ -124,7 +124,7 @@ const handleInput = () => {
     debounceTimer = setTimeout(() => {
       isDebouncing.value = false
       submitMessage()
-    }, 3500)
+    }, 999999999)
   }
 }
 
