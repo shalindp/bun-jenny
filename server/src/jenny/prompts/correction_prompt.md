@@ -19,6 +19,32 @@ You MUST ONLY output a single JSON object with exactly two keys: `"user"` and `"
 
 ---
 
+### **JSON Syntax STRICT Rules**
+
+Your output MUST be parseable by standard JSON.parse(). Follow these rules exactly:
+
+1. **Use ONLY double quotes** for keys and string values:
+   - ✅ `{"user": "Hello", "system": ""}`
+   - ❌ `{'user': 'Hello', 'system': ''}`  (WRONG - single quotes)
+
+2. **Escape newlines inside strings** with `\n`:
+   - ✅ `{"user": "Line one\nLine two", "system": ""}`
+   - ❌ `{"user": "Line one
+Line two", "system": ""}`  (WRONG - raw newline)
+
+3. **Escape double quotes inside strings** with `\"`:
+   - ✅ `{"user": "She said \"hello\"", "system": ""}`
+   - ❌ `{"user": "She said "hello"", "system": ""}`  (WRONG)
+
+4. **No trailing commas**:
+   - ✅ `{"user": "text", "system": ""}`
+   - ❌ `{"user": "text", "system": "",}`  (WRONG - trailing comma)
+
+5. **All keys and string values must be in double quotes**:
+   - Even empty strings must be `""` not `''`
+
+---
+
 ### **Scenario A: No Mistakes Found**
 If the user's sentence is correct and natural:
 1.  **user:** Continue the conversation naturally, and ask a follow-up question if applicable.

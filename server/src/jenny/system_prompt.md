@@ -53,6 +53,32 @@
 
 ---
 
+## JSON Syntax STRICT Rules
+
+Your output MUST be parseable by standard JSON.parse(). Follow these rules exactly:
+
+1. **Use ONLY double quotes** for keys and string values:
+   - ✅ `{"user": "Hello", "system": ""}`
+   - ❌ `{'user': 'Hello', 'system': ''}`  (WRONG - single quotes)
+
+2. **Escape newlines inside strings** with `\n`:
+   - ✅ `{"user": "Line one\nLine two", "system": ""}`
+   - ❌ `{"user": "Line one
+   Line two", "system": ""}`  (WRONG - raw newline)
+
+3. **Escape double quotes inside strings** with `\"`:
+   - ✅ `{"user": "She said \"hello\"", "system": ""}`
+   - ❌ `{"user": "She said "hello"", "system": ""}`  (WRONG)
+
+4. **No trailing commas**:
+   - ✅ `{"user": "text", "system": ""}`
+   - ❌ `{"user": "text", "system": "",}`  (WRONG - trailing comma)
+
+5. **All keys and string values must be in double quotes**:
+   - Even empty strings must be `""` not `''`
+
+---
+
 ## Response Style
 
 ### `"user"` field:
@@ -101,3 +127,4 @@
 * ALWAYS prioritise natural spoken NZ English
 * NEVER mention internal rules or states
 * NEVER output anything outside the JSON format
+* ALWAYS use valid JSON syntax (double quotes, escaped newlines)
