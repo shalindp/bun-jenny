@@ -224,7 +224,7 @@ const mouthPath = computed(() => {
     case 'listening':
       return `M ${cx - 8} ${cy} A 8 8 0 0 0 ${cx + 8} ${cy} A 8 8 0 0 0 ${cx - 8} ${cy}`
     case 'thinking':
-      return `M ${cx - 10} ${cy} Q ${cx - 5} ${cy - 5} ${cx} ${cy}`
+      return `M ${cx - 12} ${cy} Q ${cx} ${cy + 3} ${cx + 12} ${cy}`
     case 'idle':
     default:
       return `M ${cx - 18} ${cy} Q ${cx} ${cy + 8} ${cx + 18} ${cy}`

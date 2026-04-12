@@ -52,6 +52,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { jsonrepair as repair } from 'jsonrepair'
 import { useSettingsStore } from '../stores/settings'
 
 const props = defineProps<{
@@ -72,26 +73,49 @@ const isDebugMode = computed(() => settings.debugMode)
 
 const isJenny = computed(() => props.speaker === 'jenny')
 
+const MALFORMED_KEY = 'malformed-resp'
+
+function saveMalformedResponse(response: string) {
+  try {
+    const existing = JSON.parse(localStorage.getItem(MALFORMED_KEY) || '[]')
+    existing.push({
+      response,
+      timestamp: new Date().toISOString()
+    })
+    localStorage.setItem(MALFORMED_KEY, JSON.stringify(existing))
+  } catch (e) {
+    console.error('Failed to save malformed response:', e)
+  }
+}
+
+function parseJsonResponse(text: string): string {
+  // Try direct parse first
+  try {
+    const parsed = JSON.parse(text)
+    return parsed.user || text
+  } catch {
+    // Try to repair malformed JSON
+    try {
+      const repaired = repair(text)
+      const parsed = JSON.parse(repaired)
+      return parsed.user || text
+    } catch (repairError) {
+      // If repair fails, save to localStorage
+      saveMalformedResponse(text)
+      return text
+    }
+  }
+}
+
 const displayText = computed(() => {
   if (props.speaker === 'kavya') {
     return props.text
   }
-  
-  try {
-    const parsed = JSON.parse(props.text)
-    return parsed.user || props.text
-  } catch {
-    return props.text
-  }
+  return parseJsonResponse(props.text)
 })
 
 const replayText = computed(() => {
-  try {
-    const parsed = JSON.parse(props.text)
-    return parsed.user || props.text
-  } catch {
-    return props.text
-  }
+  return parseJsonResponse(props.text)
 })
 
 const formattedTime = computed(() => {
