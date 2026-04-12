@@ -101,9 +101,33 @@ export class Jenny {
 
         const textPart = response?.parts.find(p => p.type === "text");
         const reasoningPart = response?.parts.find(p => p.type === "reasoning");
-        const answer = textPart?.text?.trim() ?? "";
+        const rawAnswer = textPart?.text?.trim() ?? "";
         const reasoning = reasoningPart?.text?.trim() ?? "";
 
+        let answer = rawAnswer;
+        try {
+            const parsed = JSON.parse(rawAnswer);
+            if (typeof parsed === 'object' && parsed !== null) {
+                answer = parsed.user ?? parsed.response ?? rawAnswer;
+                const extractedReasoning = parsed.system ?? parsed.reasoning;
+                if (extractedReasoning && typeof reasoning === 'string' && !reasoning) {
+                    console.log('@> Extracted system field:', extractedReasoning);
+                }
+            }
+        } catch (e) {
+            console.warn('Failed to parse JSON response, trying fallback:', e);
+            try {
+                const fallback = rawAnswer.replace(/\\n/g, '\n');
+                const parsed = JSON.parse(fallback);
+                if (typeof parsed === 'object' && parsed !== null) {
+                    answer = parsed.user ?? parsed.response ?? fallback;
+                } else {
+                    answer = fallback;
+                }
+            } catch (fallbackError) {
+                console.warn('Fallback also failed:', fallbackError);
+            }
+        }
 
         console.log('@> RAW', JSON.stringify(textPart))
         return {
