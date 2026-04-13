@@ -33,7 +33,7 @@ export class Jenny {
             hostname: "127.0.0.1",
             port: 6969,
             config: {
-                model: "opencode/minimax-m2.5-free",
+                model: "opencode/big-pickle",
             },
         })
 
