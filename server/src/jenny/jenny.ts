@@ -1,5 +1,6 @@
 import {createOpencode, OpencodeClient, type Part} from "@opencode-ai/sdk";
 import systemPrompt from './system_prompt.md?raw';
+import { appendFileSync, existsSync, writeFileSync } from "fs";
 
 interface IOpencode {
     client: OpencodeClient
@@ -104,6 +105,15 @@ export class Jenny {
         const rawAnswer = textPart?.text?.trim() ?? "";
         const reasoning = reasoningPart?.text?.trim() ?? "";
 
+        // log to csv, columns are input: prompt, output: rawAnswer
+        const csvPath = "./src/jenny/prompt_logs.csv";
+        const csvLine = `"${prompt.replace(/"/g, '""')}","${rawAnswer.replace(/"/g, '""')}"\n`;
+        
+        if (!existsSync(csvPath)) {
+            writeFileSync(csvPath, "input,output\n");
+        }
+        appendFileSync(csvPath, csvLine);
+
         return {
             response: rawAnswer,
             reasoning,
@@ -111,10 +121,4 @@ export class Jenny {
         };
     }
 
-    private cleanMessage(message: string): string {
-        let cleaned = message.replace(/\\"/g, '"');
-        cleaned = cleaned.replace(/,\s*"system"\s*:\s*"[^"]*"}(?:\s*)*$/, '');
-        cleaned = cleaned.replace(/,\s*"system"\s*:\s*""}(?:\s*)*$/, '');
-        return cleaned;
-    }
 }
